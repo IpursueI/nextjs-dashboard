@@ -58,7 +58,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
   catch(error)
   {
     return {
-        message: 'Database Error: Failed to Create Invoice.',
+        message: `Database Error: Failed to Create Invoice. Error details: ${error.message}`,
       };
   }
   
@@ -87,6 +87,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
       const amountInCents = amount * 100;
    
     try{
+        // throw new Error('Failed to Update Invoice');
         await sql`
         UPDATE invoices
         SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
@@ -95,7 +96,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     }
     catch(error)
     {
-        return { message: 'Database Error: Failed to Update Invoice.' };
+        return { message: `Database Error: Failed to Update Invoice. Error details: ${error.message}` };
     }
     
    
