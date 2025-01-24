@@ -57,8 +57,12 @@ export async function createInvoice(prevState: State, formData: FormData) {
   }
   catch(error)
   {
+    let errorMessage = 'Unknown error occurred';
+    if (error instanceof Error) {
+        errorMessage = error.message;
+      }
     return {
-        message: `Database Error: Failed to Create Invoice. Error details: ${error.message}`,
+        message: `Database Error: Failed to Create Invoice. Error details: ${errorMessage}`,
       };
   }
   
@@ -96,7 +100,11 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     }
     catch(error)
     {
-        return { message: `Database Error: Failed to Update Invoice. Error details: ${error.message}` };
+        let errorMessage = 'Unknown error occurred';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        return { message: `Database Error: Failed to Update Invoice. Error details: ${errorMessage}` };
     }
     
    
